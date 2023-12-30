@@ -1,0 +1,20 @@
+.card__link{
+    width: 97%;
+    height: 98%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit:cover;
+    cursor: pointer;
+    border: white solid 0.05px;
+}
+
+.card__link:hover{
+    opacity: 80%;
+}
+
+@media screen and (max-width: 768px){
+    .card__link{
+        pointer-events:none;
+        width: 100%;
+    }
+}

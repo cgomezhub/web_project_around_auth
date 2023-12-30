@@ -1,0 +1,16 @@
+.profile__place{
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+@media screen and (max-width: 768px){
+    .profile__place{
+        font-size: 25px;
+        margin-left: 8%;
+        grid-row: 2 / 3; /* El elemento ocupará la primera fila */
+        grid-column: 1 / 2;
+      
+
+    }
+}

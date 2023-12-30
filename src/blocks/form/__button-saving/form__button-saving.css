@@ -1,0 +1,27 @@
+.form__button-saving{
+  width: 80%;
+  background-color: black;
+  color: white;
+  margin: 5% 10%;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 25px;
+  line-height: 120%;
+  text-align: center;
+  padding: 5% 0;
+  cursor: pointer;
+  display: none;
+
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 768px){
+  .form__button-saving{
+      font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 320px){
+  .form__button-saving{
+      font-size: 20px;
+  }
+}

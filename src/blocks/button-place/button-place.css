@@ -1,0 +1,37 @@
+.button-place {
+  width: 30%;
+  height: 40%;
+  background-image: url(../../images/add-button+.png);
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  border:  0px solid white;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  margin: 2% auto auto 55%;
+  outline: none;
+  cursor: pointer;
+}
+.button-place:hover {
+  opacity: 50%;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+  .button-place {
+    width: 30%;
+    height: 30%;
+    margin-left: 40%;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .button-place {
+    height: 30%;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    grid-row: 2 / 3;
+    grid-column: 3 / 4;
+  }
+}

@@ -1,0 +1,27 @@
+.card__like-count{
+  font-family: "Inter", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 133%;
+    color: black;
+    position: absolute;
+    top: 87%;
+    right: 8.5%;
+    visibility: visible;
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 768px){
+  .card__like-count{
+    background-size: 55%;
+    top: 92%;
+    right: 9%;
+  }
+}
+
+@media screen and (max-width: 320px){
+.card__like-count{
+  background-size: 45%;
+  top: 90%;
+  right: 8%;
+}
+}

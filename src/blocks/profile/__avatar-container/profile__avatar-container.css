@@ -1,0 +1,13 @@
+.profile__avatar-container{
+  width: 100%;
+  position: relative;
+}
+
+
+@media screen and (max-width: 768px){
+  .profile__avatar-container{
+    grid-row: 1 / 2; /* El elemento ocupará la primera fila */
+    grid-column: 2 / 3;
+    
+  }
+}

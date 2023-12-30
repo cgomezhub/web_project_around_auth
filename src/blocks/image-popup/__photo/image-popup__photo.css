@@ -1,0 +1,7 @@
+.image-popup__photo{   
+    margin-left: 0;
+    width: 75%;
+    height: 75%;
+    background-size:contain;
+    transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
+ }

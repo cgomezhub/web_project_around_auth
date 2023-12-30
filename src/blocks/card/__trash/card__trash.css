@@ -1,0 +1,42 @@
+.card__trash{
+  background: url(../../../images/Trash.svg) center no-repeat;
+  background-size: 100%;
+  border: none;
+  position: absolute;
+  top: 5%;
+  right: 7%;
+  cursor: pointer;
+  height: 7%;
+  width: 7%;
+  visibility: hidden;
+
+}
+
+.card__trash_active{
+
+  visibility: visible;
+}
+
+
+
+.card__trash:hover{
+    opacity: 70%;
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 768px){
+    .card__trash{
+        background-size: 40%;
+        height: 9%;
+        width: 9%;
+    }
+}
+
+@media screen and (max-width: 320px){
+    .card__trash{
+        width: 6%;
+        top: 6%;
+        right: 7%;
+
+    }
+}

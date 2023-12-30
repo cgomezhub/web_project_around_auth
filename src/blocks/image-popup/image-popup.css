@@ -1,0 +1,41 @@
+.image-popup{
+  width: 75vw;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
+  z-index: 1;
+  padding-top: 10%;
+  margin: auto;
+}
+
+
+.image-popup_visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1280px){
+    .image-popup{
+        height: 50vh;
+        
+    }
+}
+
+@media screen and (max-width: 768px){
+    .image-popup{
+
+        height: 35vh;
+        
+    }
+}

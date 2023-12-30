@@ -1,0 +1,25 @@
+.profile {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 15% 30% 5% 50%;
+  margin: 5% 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1280px){
+  .profile {
+    margin: 5% auto;
+    display: grid;
+    grid-template-columns: 15% 25% 5% 45%;
+
+  }
+}
+
+@media screen and (max-width: 768px){
+  .profile {
+    margin: 5% auto;
+    height: 30vh;
+    grid-template-rows: 60% 40%;
+    grid-template-columns: 40% 10% 50%;
+
+  }
+}

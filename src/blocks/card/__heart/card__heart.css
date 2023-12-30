@@ -1,0 +1,42 @@
+.card__heart{
+  border: none;
+  background: url(../../../images/heart.svg) center no-repeat;
+  background-size: 70%;
+  cursor: pointer;
+  height: 10%;
+  width: 10%;
+  position: absolute;
+  top: 83%;
+  right: 5%;
+  opacity: 70%;
+  transition: 0.5s;
+}
+
+.card__heart:hover{
+    opacity: 100%;
+    transform: scale(1.5);
+}
+
+
+.card__heart_active {
+    opacity: 1;
+    background: url(../../../images/Black-heart.png) center no-repeat;
+    background-size: 100%;
+  }
+
+@media screen and (min-width: 320px) and (max-width: 768px){
+    .card__heart{
+      background-size: 55%;
+      top: 85%;
+      right: 5%;
+    }
+}
+
+@media screen and (max-width: 320px){
+  .card__heart{
+    background-size: 60%;
+    top: 85%;
+    right: 5%;
+  }
+}
+
