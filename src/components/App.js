@@ -8,6 +8,8 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { Route, Switch, Redirect } from "react-router-dom";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -128,43 +130,50 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
+        <Header />
         <Switch>
+          <Route path="/signin">
+            <SignIn />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
           <Route path="/">
-            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
-
-            <Header />
-            <Main
-              onEditProfileClick={handleEditProfileClick}
-              onAddPlaceClick={handleAddPlaceClick}
-              onEditAvatarClick={handleEditAvatarClick}
-              onEraseCardClick={handleEraseCardClick}
-              onClose={closeAllPopups}
-              //isAddPlacePopupOpen={isAddPlacePopupOpen}
-              isEraseCardPopupOpen={isEraseCardPopupOpen}
-              selectedCard={selectedCard}
-              onSelectedCard={handleCardClick}
-              cards={cards}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
-            />
-            <Footer />
-            <EditProfilePopup
-              isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-            />
-            <EditAvatarPopup
-              isOpen={isEditAvatarPopupOpen}
-              onClose={closeAllPopups}
-              onUpdateAvatar={handleUpdateAvatar}
-            />
-            <AddPlacePopup
-              isOpen={isAddPlacePopupOpen}
-              onClose={closeAllPopups}
-              onAddPlaceSubmit={handleAddPlaceSubmit}
-            />
+            {isLoggedIn ? (
+              <Main
+                onEditProfileClick={handleEditProfileClick}
+                onAddPlaceClick={handleAddPlaceClick}
+                onEditAvatarClick={handleEditAvatarClick}
+                onEraseCardClick={handleEraseCardClick}
+                onClose={closeAllPopups}
+                isEraseCardPopupOpen={isEraseCardPopupOpen}
+                selectedCard={selectedCard}
+                onSelectedCard={handleCardClick}
+                cards={cards}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+              />
+            ) : (
+              <Redirect to="/signin" />
+            )}
           </Route>
         </Switch>
+        <Footer />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlaceSubmit={handleAddPlaceSubmit}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
