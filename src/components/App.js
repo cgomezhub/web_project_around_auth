@@ -8,8 +8,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { Route, Switch, Redirect } from "react-router-dom";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import Auth from "../auth";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -132,12 +131,7 @@ function App() {
       <div>
         <Header />
         <Switch>
-          <Route path="/signin">
-            <SignIn />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
+          <Auth isLoggedIn={isLoggedIn} />
           <Route path="/">
             {isLoggedIn ? (
               <Main
