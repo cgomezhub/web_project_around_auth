@@ -1,0 +1,16 @@
+.auth-form__button {
+  width: 100%;
+  background-color: #ffffff;
+  color: #000000;
+  margin: 20% auto;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 120%;
+  text-align: center;
+  padding: 5% 10;
+  cursor: pointer;
+}
+
+.auth-form__button:hover {
+  opacity: 70%;
+}

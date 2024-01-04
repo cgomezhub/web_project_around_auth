@@ -7,8 +7,9 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { Route, Switch, Redirect } from "react-router-dom";
-import Auth from "../auth";
+import { Route, Routes, useNavigate } from "react-router-dom";
+//import Auth from "../auth";
+import Login from "./Login";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -26,6 +27,18 @@ function App() {
   const [cards, setCards] = useState([]);
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  const navigate = useNavigate();
+
+  // Esta función se puede llamar para cambiar el estado de isLoggedIn
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  // Esta función se puede llamar para cerrar la sesión del usuario
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
 
   useEffect(() => {
     api
@@ -130,28 +143,33 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div>
         <Header />
-        <Switch>
-          <Auth isLoggedIn={isLoggedIn} />
-          <Route path="/">
-            {isLoggedIn ? (
-              <Main
-                onEditProfileClick={handleEditProfileClick}
-                onAddPlaceClick={handleAddPlaceClick}
-                onEditAvatarClick={handleEditAvatarClick}
-                onEraseCardClick={handleEraseCardClick}
-                onClose={closeAllPopups}
-                isEraseCardPopupOpen={isEraseCardPopupOpen}
-                selectedCard={selectedCard}
-                onSelectedCard={handleCardClick}
-                cards={cards}
-                onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
-              />
-            ) : (
-              <Redirect to="/signin" />
-            )}
-          </Route>
-        </Switch>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              isLoggedIn ? (
+                <Main
+                  onEditProfileClick={handleEditProfileClick}
+                  onAddPlaceClick={handleAddPlaceClick}
+                  onEditAvatarClick={handleEditAvatarClick}
+                  onEraseCardClick={handleEraseCardClick}
+                  onClose={closeAllPopups}
+                  isEraseCardPopupOpen={isEraseCardPopupOpen}
+                  selectedCard={selectedCard}
+                  onSelectedCard={handleCardClick}
+                  cards={cards}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                  onLogout={handleLogout}
+                  onLogin={handleLogin}
+                />
+              ) : (
+                navigate("/sigin")
+              )
+            }
+          ></Route>
+          <Route path="/sigin" element={<Login />} />
+        </Routes>
         <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}

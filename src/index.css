@@ -37,7 +37,9 @@
 @import url(../src/blocks/image-popup/__close/image-popup__close.css);
 @import url(../src/blocks/image-popup/__photo/image-popup__photo.css);
 @import url(../src/blocks/image-popup/__name/image-popup__name.css);
-
-
-
-
+@import url(../src/blocks/auth/auth.css);
+@import url(../src/blocks/auth-form/auth-form.css);
+@import url(../src/blocks/auth-form/__title/auth-form__title.css);
+@import url(../src/blocks/auth-form/__input/auth-form__input.css);
+@import url(../src/blocks/auth-form/__button/auth-form__button.css);
+@import url(../src/blocks/auth-form/__register/auth-form__register.css);

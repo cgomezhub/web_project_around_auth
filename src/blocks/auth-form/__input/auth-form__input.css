@@ -1,0 +1,11 @@
+.auth-form__input {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 121%;
+  color: #ffffff;
+  background-color: black;
+  width: 100%;
+  margin: 5% auto;
+  border: none;
+  border-bottom: solid 2px #cccccc;
+}

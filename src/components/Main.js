@@ -21,7 +21,7 @@ function Main({
   onCardDelete,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  
+
   return (
     <div>
       <div className="page">
@@ -65,7 +65,7 @@ function Main({
           />
           {selectedCard && (
             <ImagePopup selectedCard={selectedCard} onClose={onClose} />
-          )}              
+          )}
           <PopupWithForm
             title="¿Estás seguro/a?"
             name="sure-form"

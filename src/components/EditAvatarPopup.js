@@ -1,16 +1,15 @@
 import React, { useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
-
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
-  
-    const inputRef = useRef();
- 
+  const inputRef = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateAvatar({
-      avatar: inputRef.current.value, /* El valor de la entrada que obtuvimos utilizando la ref */
+      avatar:
+        inputRef.current
+          .value /* El valor de la entrada que obtuvimos utilizando la ref */,
     });
   }
 
@@ -26,7 +25,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       <input
         type="url"
         id="url-input-avatar"
-        ref={inputRef} 
+        ref={inputRef}
         className="form__input"
         placeholder="Introduce URL (https://... o http://...)"
         required

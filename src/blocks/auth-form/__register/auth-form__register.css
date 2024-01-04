@@ -1,0 +1,9 @@
+.auth-form__register {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 121%;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  margin: 5% auto 20%;
+}

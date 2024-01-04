@@ -1,18 +1,20 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Login from "../src/components/Login";
 import Register from "../src/components/Register";
 
 function Auth({ isLoggedIn }) {
   return (
-    <Switch>
-      <Route path="/signin">
-        {isLoggedIn ? <Redirect to="/" /> : <Login />}
-      </Route>
-      <Route path="/signup">
-        {isLoggedIn ? <Redirect to="/" /> : <Register />}
-      </Route>
-    </Switch>
+    <Routes>
+      <Route
+        path="/signin"
+        element={isLoggedIn ? <Navigate to="/" /> : <Login />}
+      />
+      <Route
+        path="/signup"
+        element={isLoggedIn ? <Navigate to="/" /> : <Register />}
+      />
+    </Routes>
   );
 }
 
