@@ -1,0 +1,9 @@
+.container-info-tool {
+  width: 60%;
+  background-color: white;
+  border-radius: 3%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 5%;
+}

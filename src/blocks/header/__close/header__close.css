@@ -1,0 +1,14 @@
+.header__close {
+  color: #a9a9a9;
+  margin-top: 35%;
+  font-size: 18px;
+  line-height: 125%;
+  font-family: "inter", Arial, sans-serif;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.header__close:hover {
+  opacity: 0.7;
+}

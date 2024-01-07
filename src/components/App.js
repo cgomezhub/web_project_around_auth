@@ -8,8 +8,11 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { Route, Routes, useNavigate } from "react-router-dom";
-//import Auth from "../auth";
-import Login from "./Login";
+import Auth from "../auth";
+import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
+import InfoTooltip from "./InfoTooltip";
+import InfoTooltipFail from "./InfoTooltipFail";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -26,9 +29,17 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const navigate = useNavigate();
+  function RedirectToHome() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      navigate("/");
+    }, [navigate]);
+
+    return null;
+  }
 
   // Esta función se puede llamar para cambiar el estado de isLoggedIn
   const handleLogin = () => {
@@ -142,12 +153,18 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
-        <Header />
+        <Header isLoggedIn={isLoggedIn} />
         <Routes>
+          <Route path="/signup" element={<Register />} />
           <Route
+            path="/signin"
+            element={isLoggedIn ? <RedirectToHome /> : <Auth />}
+          />
+          <Route
+            exact
             path="/"
             element={
-              isLoggedIn ? (
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Main
                   onEditProfileClick={handleEditProfileClick}
                   onAddPlaceClick={handleAddPlaceClick}
@@ -163,13 +180,14 @@ function App() {
                   onLogout={handleLogout}
                   onLogin={handleLogin}
                 />
-              ) : (
-                navigate("/sigin")
-              )
+              </ProtectedRoute>
             }
-          ></Route>
-          <Route path="/sigin" element={<Login />} />
+          />
+
+          <Route path="/*" element={<RedirectToHome />} />
         </Routes>
+        {/*<InfoTooltip />*/}
+        {/*<InfoTooltipFail />*/}
         <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}

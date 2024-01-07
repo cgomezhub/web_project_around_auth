@@ -1,0 +1,17 @@
+.container-info-tool__close {
+  position: absolute;
+  top: -5%;
+  right: -5%;
+  width: 5%;
+  height: 5%;
+  background-image: url(../../../images/Close-Icon.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.container-info-tool__close:hover {
+  opacity: 70%;
+}

@@ -37,7 +37,10 @@ function Login() {
           Inicia Sesion
         </button>
         <p className="auth-form__register">
-          ¿Aún no eres miembro? <Link to="/register">Registrate aqui</Link>
+          ¿Aún no eres miembro? &nbsp;
+          <Link to="/signup" className="auth-form__register">
+            Registrate aqui
+          </Link>
         </p>
       </form>
     </section>

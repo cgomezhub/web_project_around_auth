@@ -43,3 +43,9 @@
 @import url(../src/blocks/auth-form/__input/auth-form__input.css);
 @import url(../src/blocks/auth-form/__button/auth-form__button.css);
 @import url(../src/blocks/auth-form/__register/auth-form__register.css);
+@import url(../src/blocks/popup-info-tool/popup-info-tool.css);
+@import url(../src/blocks/container-info-tool/container-info-tool.css);
+@import url(../src/blocks/container-info-tool/__image/container-info-tool__image.css);
+@import url(../src//blocks/container-info-tool/__text/container-info-tool__text.css);
+@import url(../src//blocks/container-info-tool/__close/container-info-tool__close.css);
+@import url(../src/blocks/header/__close/header__close.css);
