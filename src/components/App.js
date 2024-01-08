@@ -8,7 +8,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Auth from "../auth";
+import Auth from "../utils/auth";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
@@ -25,11 +25,13 @@ function App() {
     name: "",
     about: "",
     avatar: "",
+    email: "",
+    password: "",
   });
 
   const [cards, setCards] = useState([]);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   function RedirectToHome() {
     const navigate = useNavigate();
@@ -47,6 +49,8 @@ function App() {
   };
 
   // Esta función se puede llamar para cerrar la sesión del usuario
+  // probablemente implicará eliminar el token de autenticación del usuario
+  // y redirigir al usuario a la página de inicio de sesión
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
@@ -153,7 +157,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
-        <Header isLoggedIn={isLoggedIn} />
+        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         <Routes>
           <Route path="/signup" element={<Register />} />
           <Route

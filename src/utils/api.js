@@ -83,7 +83,7 @@ class Api {
 
   setUserAvatar(updatedAvatar) {
     return fetch(`${this.address}/users/me/avatar`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: this.headers,
       body: JSON.stringify(updatedAvatar),
     })
@@ -91,7 +91,7 @@ class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject('Error: ' + res.status);
+        return Promise.reject("Error: " + res.status);
       })
       .catch((err) => {
         console.log(err);
@@ -102,7 +102,7 @@ class Api {
 
   addNewCard(newImage) {
     return fetch(`${this.address}/cards`, {
-      method: 'POST',
+      method: "POST",
       headers: this.headers,
       body: JSON.stringify(newImage),
     })
@@ -110,7 +110,7 @@ class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject('Error: ' + res.status);
+        return Promise.reject("Error: " + res.status);
       })
       .catch((err) => {
         console.log(err);

@@ -2,14 +2,8 @@ import logo from "../images/logo-around-theUS.svg";
 import "../index.css";
 import { Link, useLocation } from "react-router-dom";
 
-function Header({ isLoggedIn, userEmail }) {
+function Header({ isLoggedIn, userEmail, onLogout }) {
   const location = useLocation();
-
-  const handleLogout = () => {
-    // Aquí debes implementar la lógica de cierre de sesión
-    // que probablemente implicará eliminar el token de autenticación del usuario
-    // y redirigir al usuario a la página de inicio de sesión
-  };
 
   if (isLoggedIn) {
     return (
@@ -19,7 +13,7 @@ function Header({ isLoggedIn, userEmail }) {
           <div>
             {userEmail}
             <Link to="/signin">
-              <button onClick={handleLogout} className="header__close">
+              <button onClick={onLogout} className="header__close">
                 Cerrar sesión
               </button>
             </Link>

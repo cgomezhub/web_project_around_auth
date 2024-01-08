@@ -8,3 +8,7 @@
   margin: 5% auto 20%;
   text-decoration: none;
 }
+
+.auth-form__register:hover {
+  opacity: 0.7;
+}
