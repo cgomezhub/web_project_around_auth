@@ -1,17 +1,21 @@
 import React from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Login from "../components/Login";
+import Register from "../components/Register";
+//import api from "../utils/api";
 
-function Auth() {
-  const navigate = useNavigate();
+function Auth({ onRegisterSubmit }) {
+  //const navigate = useNavigate();
 
   return (
     <Routes>
+      <Route
+        path="/signup"
+        element={<Register onRegisterSubmit={onRegisterSubmit} />}
+      />
       <Route path="/signin" element={<Login />} />
-      <Route exact path="/" element={<Login />} />
-      <Route path="/*" element={navigate("/")} />
+      <Route path="/*" element={<Login />} />
     </Routes>
   );
 }
-
 export default Auth;

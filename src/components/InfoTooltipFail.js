@@ -3,9 +3,7 @@ import check from "../images/Unionfail.png";
 
 function InfoTooltipFail({ isOpen, onClose }) {
   return (
-    <section
-      className={`popup-info-tool ${isOpen ? "popup-info-tool_is-opened" : ""}`}
-    >
+    <section className={`popup ${isOpen ? "popup_is-opened" : ""}`}>
       <div className="container-info-tool">
         <button
           type="button"

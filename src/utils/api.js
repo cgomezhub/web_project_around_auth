@@ -63,6 +63,8 @@ class Api {
         console.log(err);
       });
   }
+  // actualizar info de users
+
   setUserInfo(updatedData) {
     return fetch(`${this.address}/users/me`, {
       method: "PATCH",
@@ -79,6 +81,26 @@ class Api {
         console.log(err);
       });
   }
+
+  // registrar usuario
+
+  register(user) {
+    return fetch(`${this.address}/signup`, {
+      method: "POST",
+      headers: this.headers,
+      body: JSON.stringify(user),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject("Error: " + res.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   // Actualizar la foto de perfil
 
   setUserAvatar(updatedAvatar) {
@@ -126,4 +148,11 @@ const api = new Api({
   },
 });
 
-export default api;
+const apiRegister = new Api({
+  address: "https://register.nomoreparties.co",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export { api, apiRegister };

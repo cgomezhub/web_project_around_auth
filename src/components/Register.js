@@ -1,14 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+//import { apiRegister } from "../utils/api";
 
-function Register() {
+function Register({ onRegisterSubmit }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Aquí puedes manejar la lógica de autenticación
-    console.log(`Email: ${email}, Password: ${password}`);
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const user = { email, password };
+
+    onRegisterSubmit(user);
   };
 
   return (
@@ -19,7 +30,7 @@ function Register() {
           className="auth-form__input"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange}
           placeholder="Correo electrónico"
           required
         />
@@ -27,7 +38,7 @@ function Register() {
           className="auth-form__input"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handlePasswordChange}
           placeholder="Contraseña"
           minLength="4"
           maxLength="20"

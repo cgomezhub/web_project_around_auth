@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import api from "../utils/api";
+import { api, apiRegister } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Auth from "../utils/auth";
-import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
 import InfoTooltipFail from "./InfoTooltipFail";
@@ -19,6 +18,9 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEraseCardPopupOpen, setIsEraseCardPopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isInfoTooltipFailOpen, setIsInfoTooltipFailOpen] = useState(false);
+
   const [selectedCard, setSeletedCard] = useState(null);
 
   const [currentUser, setCurrentUser] = useState({
@@ -31,17 +33,7 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  function RedirectToHome() {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-      navigate("/");
-    }, [navigate]);
-
-    return null;
-  }
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Esta función se puede llamar para cambiar el estado de isLoggedIn
   const handleLogin = () => {
@@ -73,6 +65,28 @@ function App() {
         console.log(error);
       });
   }, []);
+
+  const navigate = useNavigate();
+
+  const handleRegisterSubmit = (user) => {
+    apiRegister
+      .register(user)
+      .then((response) => {
+        if (response) {
+          // maneja la respuesta del servidor aquí
+          // por ejemplo, puedes actualizar el estado de la aplicación o redirigir al usuario
+          setIsInfoTooltipOpen(true);
+          navigate("/signin");
+        } else {
+          setIsInfoTooltipFailOpen(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Error during registration:", error);
+        // maneja el error aquí
+        // por ejemplo, puedes mostrar un mensaje de error al usuario
+      });
+  };
 
   const handleAddPlaceSubmit = (cardData) => {
     api
@@ -135,6 +149,8 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEraseCardPopupOpen(false);
     setSeletedCard(null);
+    setIsInfoTooltipOpen(false);
+    setIsInfoTooltipFailOpen(false);
   };
 
   function handleCardLike(card) {
@@ -158,12 +174,8 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div>
         <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        {!isLoggedIn && <Auth onRegisterSubmit={handleRegisterSubmit} />}
         <Routes>
-          <Route path="/signup" element={<Register />} />
-          <Route
-            path="/signin"
-            element={isLoggedIn ? <RedirectToHome /> : <Auth />}
-          />
           <Route
             exact
             path="/"
@@ -187,11 +199,12 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          <Route path="/*" element={<RedirectToHome />} />
         </Routes>
-        {/*<InfoTooltip />*/}
-        {/*<InfoTooltipFail />*/}
+        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} />
+        <InfoTooltipFail
+          isOpen={isInfoTooltipFailOpen}
+          onClose={closeAllPopups}
+        />
         <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
