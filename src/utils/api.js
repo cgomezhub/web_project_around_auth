@@ -101,6 +101,42 @@ class Api {
       });
   }
 
+  // Autorizar usuario
+
+  auth(user) {
+    return fetch(`${this.address}/signin`, {
+      method: "POST",
+      headers: this.headers,
+      body: JSON.stringify(user),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject("Error: " + res.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  //obtener email del user
+
+  getMail() {
+    return fetch(`${this.address}/users/me`, {
+      headers: this.headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject("Error: " + res.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   // Actualizar la foto de perfil
 
   setUserAvatar(updatedAvatar) {
@@ -152,6 +188,7 @@ const apiRegister = new Api({
   address: "https://register.nomoreparties.co",
   headers: {
     "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 });
 

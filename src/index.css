@@ -49,3 +49,5 @@
 @import url(../src//blocks/container-info-tool/__text/container-info-tool__text.css);
 @import url(../src//blocks/container-info-tool/__close/container-info-tool__close.css);
 @import url(../src/blocks/header/__close/header__close.css);
+@import url(../src/blocks/header/__container/header__container.css);
+@import url(../src/blocks/header/__email/header__email.css);

@@ -10,8 +10,8 @@ function Header({ isLoggedIn, userEmail, onLogout }) {
       <div className="page">
         <header className="header">
           <img src={logo} alt="logo around the US" className="logo" />
-          <div>
-            {userEmail}
+          <div className="header__container">
+            <p className="header__email">{userEmail}</p>
             <Link to="/signin">
               <button onClick={onLogout} className="header__close">
                 Cerrar sesión

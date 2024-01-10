@@ -1,5 +1,12 @@
-.line{
-    height: 0.15px;
-    background-color: #fff;
-    
+.line {
+  height: 0.15px;
+  background-color: #fff;
+  width: 69%;
+  margin: 0% auto;
+}
+
+@media screen and (max-width: 768px) {
+  .line {
+    width: 97%;
+  }
 }

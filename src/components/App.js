@@ -18,6 +18,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEraseCardPopupOpen, setIsEraseCardPopupOpen] = useState(false);
+
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isInfoTooltipFailOpen, setIsInfoTooltipFailOpen] = useState(false);
 
@@ -27,13 +28,13 @@ function App() {
     name: "",
     about: "",
     avatar: "",
-    email: "",
-    password: "",
   });
 
   const [cards, setCards] = useState([]);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [email, setEmail] = useState("null");
 
   // Esta función se puede llamar para cambiar el estado de isLoggedIn
   const handleLogin = () => {
@@ -79,6 +80,49 @@ function App() {
           navigate("/signin");
         } else {
           setIsInfoTooltipFailOpen(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Error during registration:", error);
+        // maneja el error aquí
+        // por ejemplo, puedes mostrar un mensaje de error al usuario
+      });
+  };
+
+  const handleSigninSubmit = (user) => {
+    apiRegister
+      .auth(user)
+      .then((data) => {
+        if (data) {
+          // maneja la respuesta del servidor aquí
+          // por ejemplo, puedes actualizar el estado de la aplicación o redirigir al usuario
+          setIsLoggedIn(true);
+          navigate("/");
+          localStorage.setItem("token", data.token);
+          console.log({ localStorage });
+        } else {
+          setIsInfoTooltipFailOpen(true);
+          throw new Error("Token not returned");
+        }
+      })
+      .catch((error) => {
+        console.error("Error during registration:", error);
+        // maneja el error aquí
+        // por ejemplo, puedes mostrar un mensaje de error al usuario
+      });
+    // metodo para obtener el mail del usuario y mostralo en el Header
+
+    apiRegister
+      .getMail()
+      .then((data) => {
+        console.log(data);
+        if (data) {
+          // maneja la respuesta del servidor aquí
+          // por ejemplo, puedes actualizar el estado de la aplicación o redirigir al usuario
+          setEmail(data.data.email);
+        } else {
+          // maneja errores de carga de datos
+          console.log(data);
         }
       })
       .catch((error) => {
@@ -173,8 +217,18 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
-        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-        {!isLoggedIn && <Auth onRegisterSubmit={handleRegisterSubmit} />}
+        <Header
+          isLoggedIn={isLoggedIn}
+          onLogout={handleLogout}
+          userEmail={email}
+        />
+        {!isLoggedIn && (
+          <Auth
+            onRegisterSubmit={handleRegisterSubmit}
+            onSigninSubmit={handleSigninSubmit}
+          />
+        )}
+
         <Routes>
           <Route
             exact

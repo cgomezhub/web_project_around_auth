@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Login() {
+function Login({ onSigninSubmit }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Aquí puedes manejar la lógica de autenticación
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     console.log(`Email: ${email}, Password: ${password}`);
+
+    const user = { email, password };
+
+    onSigninSubmit(user);
   };
 
   return (
@@ -19,7 +31,7 @@ function Login() {
           className="auth-form__input"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange}
           placeholder="Correo electrónico"
           required
         />
@@ -27,7 +39,7 @@ function Login() {
           className="auth-form__input"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handlePasswordChange}
           placeholder="Contraseña"
           minLength="4"
           maxLength="20"
