@@ -15,5 +15,7 @@
 @media screen and (max-width: 768px) {
   .header__container {
     flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
   }
 }
