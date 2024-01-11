@@ -103,7 +103,7 @@ class Api {
 
   // Autorizar usuario
 
-  auth(user) {
+  authUser(user) {
     return fetch(`${this.address}/signin`, {
       method: "POST",
       headers: this.headers,
@@ -122,7 +122,7 @@ class Api {
 
   //obtener email del user
 
-  getMail() {
+  getUser() {
     return fetch(`${this.address}/users/me`, {
       headers: this.headers,
     })
@@ -188,8 +188,15 @@ const apiRegister = new Api({
   address: "https://register.nomoreparties.co",
   headers: {
     "Content-Type": "application/json",
+  },
+});
+
+const apiToken = new Api({
+  address: "https://register.nomoreparties.co",
+  headers: {
+    "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 });
 
-export { api, apiRegister };
+export { api, apiRegister, apiToken };

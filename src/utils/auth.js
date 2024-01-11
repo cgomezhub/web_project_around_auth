@@ -2,11 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "../components/Login";
 import Register from "../components/Register";
-//import api from "../utils/api";
 
 function Auth({ onRegisterSubmit, onSigninSubmit }) {
-  //const navigate = useNavigate();
-
   return (
     <Routes>
       <Route

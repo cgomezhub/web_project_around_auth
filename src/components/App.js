@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import { api, apiRegister } from "../utils/api";
+import { api, apiRegister, apiToken } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -34,18 +34,18 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [email, setEmail] = useState("null");
+  // agregar el email al encabezado
 
-  // Esta función se puede llamar para cambiar el estado de isLoggedIn
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
+  const [email, setEmail] = useState(null);
 
   // Esta función se puede llamar para cerrar la sesión del usuario
-  // probablemente implicará eliminar el token de autenticación del usuario
+  // implicará eliminar el token de autenticación del usuario
   // y redirigir al usuario a la página de inicio de sesión
+
   const handleLogout = () => {
+    setEmail(null);
     setIsLoggedIn(false);
+    localStorage.removeItem("token");
   };
 
   useEffect(() => {
@@ -75,7 +75,7 @@ function App() {
       .then((response) => {
         if (response) {
           // maneja la respuesta del servidor aquí
-          // por ejemplo, puedes actualizar el estado de la aplicación o redirigir al usuario
+          // para abrir los popups de registro positivo o fallido
           setIsInfoTooltipOpen(true);
           navigate("/signin");
         } else {
@@ -84,41 +84,18 @@ function App() {
       })
       .catch((error) => {
         console.error("Error during registration:", error);
-        // maneja el error aquí
-        // por ejemplo, puedes mostrar un mensaje de error al usuario
       });
   };
 
-  const handleSigninSubmit = (user) => {
-    apiRegister
-      .auth(user)
-      .then((data) => {
-        if (data) {
-          // maneja la respuesta del servidor aquí
-          // por ejemplo, puedes actualizar el estado de la aplicación o redirigir al usuario
-          setIsLoggedIn(true);
-          navigate("/");
-          localStorage.setItem("token", data.token);
-          console.log({ localStorage });
-        } else {
-          setIsInfoTooltipFailOpen(true);
-          throw new Error("Token not returned");
-        }
-      })
-      .catch((error) => {
-        console.error("Error during registration:", error);
-        // maneja el error aquí
-        // por ejemplo, puedes mostrar un mensaje de error al usuario
-      });
-    // metodo para obtener el mail del usuario y mostralo en el Header
+  // manejador del token
 
-    apiRegister
-      .getMail()
+  const handleToken = () => {
+    apiToken
+      .getUser()
       .then((data) => {
-        console.log(data);
         if (data) {
           // maneja la respuesta del servidor aquí
-          // por ejemplo, puedes actualizar el estado de la aplicación o redirigir al usuario
+          // agregar el email al encabezado
           setEmail(data.data.email);
         } else {
           // maneja errores de carga de datos
@@ -127,10 +104,47 @@ function App() {
       })
       .catch((error) => {
         console.error("Error during registration:", error);
-        // maneja el error aquí
-        // por ejemplo, puedes mostrar un mensaje de error al usuario
       });
   };
+
+  const handleSigninSubmit = (user) => {
+    setIsLoggedIn(false);
+    localStorage.clear();
+
+    apiRegister
+      .authUser(user)
+      .then((data) => {
+        if (data) {
+          // maneja la respuesta del servidor aquí
+          // redirigir al usuario a la pgina principal de la app
+          setIsLoggedIn(true);
+          navigate("/");
+          localStorage.setItem("token", data.token);
+          // dirigir a para  configurar el mail a mostar
+          handleToken();
+        } else {
+          // maneja errores de carga de datos
+          setIsInfoTooltipFailOpen(true);
+          throw new Error("Token not returned");
+        }
+      })
+      .catch((error) => {
+        console.error("Error during registration:", error);
+      });
+  };
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        handleToken();
+        setIsLoggedIn(true);
+        navigate("/");
+      }
+    };
+    checkToken();
+  }, [navigate]);
 
   const handleAddPlaceSubmit = (cardData) => {
     api
@@ -247,8 +261,6 @@ function App() {
                   cards={cards}
                   onCardLike={handleCardLike}
                   onCardDelete={handleCardDelete}
-                  onLogout={handleLogout}
-                  onLogin={handleLogin}
                 />
               </ProtectedRoute>
             }

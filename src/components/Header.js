@@ -5,6 +5,11 @@ import { Link, useLocation } from "react-router-dom";
 function Header({ isLoggedIn, userEmail, onLogout }) {
   const location = useLocation();
 
+  const handleLogout = (event) => {
+    event.preventDefault();
+    onLogout(); // Llama a onLogout sin pasar el evento
+  };
+
   if (isLoggedIn) {
     return (
       <div className="page">
@@ -13,7 +18,7 @@ function Header({ isLoggedIn, userEmail, onLogout }) {
           <div className="header__container">
             <p className="header__email">{userEmail}</p>
             <Link to="/signin">
-              <button onClick={onLogout} className="header__close">
+              <button onClick={handleLogout} className="header__close">
                 Cerrar sesión
               </button>
             </Link>

@@ -13,12 +13,10 @@ function Login({ onSigninSubmit }) {
     setPassword(e.target.value);
   };
 
+  const user = { email, password };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(`Email: ${email}, Password: ${password}`);
-
-    const user = { email, password };
 
     onSigninSubmit(user);
   };

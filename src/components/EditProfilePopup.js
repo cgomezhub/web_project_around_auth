@@ -14,7 +14,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   }
   // suscribir el contexto
   const currentUser = useContext(CurrentUserContext);
-  //console.log(currentUser);
   // Después de cargar el usuario actual desde la API
   // sus datos serán usados en componentes gestionados.
   React.useEffect(() => {
