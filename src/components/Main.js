@@ -21,6 +21,9 @@ function Main({
   onCardDelete,
 }) {
   const currentUser = useContext(CurrentUserContext);
+  if (!currentUser) {
+    return <div>Loading...</div>; // O algún otro tipo de indicador de carga
+  }
 
   return (
     <div>
