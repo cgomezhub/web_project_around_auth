@@ -3,9 +3,14 @@ import React, { useContext } from "react";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Card({ cards, onSelectedCard, onEraseCardClick, onCardLike, onCardDelete }) {
+function Card({
+  cards,
+  onSelectedCard,
+  onEraseCardClick,
+  onCardLike,
+  onCardDelete,
+}) {
   const currentUser = useContext(CurrentUserContext);
- 
 
   return (
     <section className="cards">
@@ -41,8 +46,7 @@ function Card({ cards, onSelectedCard, onEraseCardClick, onCardLike, onCardDelet
             <button
               className={cardLikeButtonClassName}
               onClick={() => onCardLike(card)}
-            >
-            </button>
+            ></button>
             <p className="card__like-count">{card.likes.length}</p>
           </div>
         );
