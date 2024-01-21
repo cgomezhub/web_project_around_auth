@@ -1,5 +1,5 @@
 {
-  "name": "web_project_around_react",
+  "name": "web_project_around_react_auth",
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && scp -r ./build/* cgomezlugo@around.myremotetest.eu:/home/cgomezlugo/around-frontend"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +43,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.1.0"
+    "gh-pages": "^6.1.1"
   }
 }
