@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* cgomezlugo@around.myremotetest.eu:/home/cgomezlugo/around-frontend"
+    "deploy": "npm run build && scp -r ./build/* cgomezlugo@34.136.10.156:/home/cgomezlugo/web_project_api_full/frontend"
   },
   "eslintConfig": {
     "extends": [

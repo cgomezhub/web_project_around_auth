@@ -177,22 +177,23 @@ class Api {
 }
 
 const api = new Api({
-  address: "https://around.nomoreparties.co/v1/web_es_09",
+  address: "https://around.myremotetest.eu", //antiguo "https://around.nomoreparties.co/v1/web_es_09"
   headers: {
-    authorization: "24db7356-9f7a-470a-979e-9ec3f25f6f02",
+    authorization:
+      "bc803120d5a3d713089794c6b5fd8258f889fa26de704c44d90b8bc9243fedaf", // antes "24db7356-9f7a-470a-979e-9ec3f25f6f02" ahora "bc803120d5a3d713089794c6b5fd8258f889fa26de704c44d90b8bc9243fedaf"
     "Content-Type": "application/json",
   },
 });
 
 const apiRegister = new Api({
-  address: "https://register.nomoreparties.co",
+  address: "https://around.myreomtetest.eu", // antiguo "https://register.nomoreparties.co"
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 const apiToken = new Api({
-  address: "https://register.nomoreparties.co",
+  address: "https://around.myremotetest.eu", //antiguo "https://register.nomoreparties.co"
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
