@@ -47,7 +47,7 @@ function App() {
     setIsLoggedIn(false);
     localStorage.removeItem("token");
   };
-
+  /*
   useEffect(() => {
     api
       .getUserInfo()
@@ -66,7 +66,7 @@ function App() {
         console.log(error);
       });
   }, []);
-
+*/
   const navigate = useNavigate();
 
   const handleRegisterSubmit = (user) => {

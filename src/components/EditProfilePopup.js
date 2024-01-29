@@ -12,10 +12,12 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   function handleDesriptionChange(e) {
     setDescription(e.target.value);
   }
+
   // suscribir el contexto
   const currentUser = useContext(CurrentUserContext);
   // Después de cargar el usuario actual desde la API
   // sus datos serán usados en componentes gestionados.
+
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
