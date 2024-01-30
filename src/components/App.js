@@ -32,11 +32,11 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // estado de la sesión del usuario
 
-  // agregar el email al encabezado
+  const [email, setEmail] = useState(null); // email del usuario
 
-  const [email, setEmail] = useState(null);
+  const [token, setToken] = useState(null); // token del usuario  para la autenticación
 
   // Esta función se puede llamar para cerrar la sesión del usuario
   // implicará eliminar el token de autenticación del usuario
@@ -119,7 +119,8 @@ function App() {
           // redirigir al usuario a la pgina principal de la app
           setIsLoggedIn(true);
           navigate("/");
-          localStorage.setItem("token", data.token);
+          setToken(data.token); // token del usuario
+          localStorage.setItem("token", token);
           // dirigir a para  configurar el mail a mostar
           handleToken();
         } else {
@@ -135,9 +136,9 @@ function App() {
 
   useEffect(() => {
     const checkToken = async () => {
-      const token = localStorage.getItem("token");
+      const storedToken = localStorage.getItem("token");
 
-      if (token) {
+      if (storedToken) {
         handleToken();
         setIsLoggedIn(true);
         navigate("/");
