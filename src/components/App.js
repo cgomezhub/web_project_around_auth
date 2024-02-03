@@ -173,13 +173,14 @@ function App() {
   };
 
   const handleUpdateAvatar = (userData) => {
-    if (!userData || !userData.name) {
+    if (!userData || !userData.avatar) {
       console.error("userData is undefined or does not have a name property");
       return;
     }
     api
       .setUserAvatar(userData)
       .then((updateAvatarData) => {
+        console.log(updateAvatarData);
         setCurrentUser(updateAvatarData);
         closeAllPopups();
       })
@@ -250,6 +251,7 @@ function App() {
     setIsLoggedIn(false);
     localStorage.clear();
     setToken("");
+    window.location.reload();
   };
 
   const closeAllPopups = () => {
