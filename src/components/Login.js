@@ -39,7 +39,7 @@ function Login({ onSigninSubmit }) {
           value={password}
           onChange={handlePasswordChange}
           placeholder="Contraseña"
-          minLength="4"
+          minLength="8"
           maxLength="20"
           required
         />

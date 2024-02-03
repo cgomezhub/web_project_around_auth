@@ -36,17 +36,12 @@ function App() {
 
   const [email, setEmail] = useState(null); // email del usuario
 
-  const [token, setToken] = useState(null); // token del usuario  para la autenticación
+  const [token, setToken] = useState(""); // token del usuario  para la autenticación
 
   // Esta función se puede llamar para cerrar la sesión del usuario
   // implicará eliminar el token de autenticación del usuario
   // y redirigir al usuario a la página de inicio de sesión
 
-  const handleLogout = () => {
-    setEmail(null);
-    setIsLoggedIn(false);
-    localStorage.removeItem("token");
-  };
   /*
   useEffect(() => {
     api
@@ -78,6 +73,7 @@ function App() {
           // para abrir los popups de registro positivo o fallido
           setIsInfoTooltipOpen(true);
           navigate("/signin");
+          console.log(response);
         } else {
           setIsInfoTooltipFailOpen(true);
         }
@@ -87,42 +83,25 @@ function App() {
       });
   };
 
-  // manejador del token
-
-  const handleToken = () => {
-    apiToken
-      .getUser()
-      .then((data) => {
-        if (data) {
-          // maneja la respuesta del servidor aquí
-          // agregar el email al encabezado
-          setEmail(data.data.email);
-        } else {
-          // maneja errores de carga de datos
-          console.log(data);
-        }
-      })
-      .catch((error) => {
-        console.error("Error during registration:", error);
-      });
-  };
+  // manejador del token para obtener el email del usuario
 
   const handleSigninSubmit = (user) => {
-    setIsLoggedIn(false);
-    localStorage.clear();
-
     apiRegister
       .authUser(user)
       .then((data) => {
         if (data) {
           // maneja la respuesta del servidor aquí
           // redirigir al usuario a la pgina principal de la app
+          localStorage.clear();
+          console.log(data.token);
+          localStorage.setItem("token", data.token);
           setIsLoggedIn(true);
+
+          console.log(localStorage.getItem("token"));
           navigate("/");
-          setToken(data.token); // token del usuario
-          localStorage.setItem("token", token);
-          // dirigir a para  configurar el mail a mostar
-          handleToken();
+          //setToken(localStorage.getItem("token"));
+          //console.log(token);
+          handleUser();
         } else {
           // maneja errores de carga de datos
           setIsInfoTooltipFailOpen(true);
@@ -132,26 +111,60 @@ function App() {
       .catch((error) => {
         console.error("Error during registration:", error);
       });
+    // dirigir a para  configurar el mail a mostar
+  };
+
+  const handleUser = () => {
+    apiToken
+      .getUser()
+      .then((response) => {
+        if (response) {
+          // maneja la respuesta del servidor aquí
+          // agregar el email al encabezado
+          console.log(response);
+          setEmail(response.data.email);
+          setCurrentUser(response.data);
+        } else {
+          // maneja errores de carga de datos
+          console.log(response);
+        }
+      })
+      .catch((error) => {
+        console.error("Error during registration:", error);
+      });
+  };
+
+  const handleCards = () => {
+    api
+      .getCardList()
+      .then((cardsList) => {
+        setCards(cardsList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
     const checkToken = async () => {
-      const storedToken = localStorage.getItem("token");
-
-      if (storedToken) {
-        handleToken();
+      setToken(localStorage.getItem("token"));
+      console.log(token);
+      if (token) {
+        handleUser();
+        handleCards();
         setIsLoggedIn(true);
         navigate("/");
       }
     };
     checkToken();
-  }, [navigate]);
+  }, [navigate, token]);
 
   const handleAddPlaceSubmit = (cardData) => {
     api
       .addNewCard(cardData)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        console.log(newCard);
+        setCards([newCard, ...(Array.isArray(cards) ? cards : [])]);
         closeAllPopups();
       })
       .catch((error) => {
@@ -160,6 +173,10 @@ function App() {
   };
 
   const handleUpdateAvatar = (userData) => {
+    if (!userData || !userData.name) {
+      console.error("userData is undefined or does not have a name property");
+      return;
+    }
     api
       .setUserAvatar(userData)
       .then((updateAvatarData) => {
@@ -174,8 +191,8 @@ function App() {
   const handleUpdateUser = (userData) => {
     api
       .setUserInfo(userData)
-      .then((updateUserData) => {
-        setCurrentUser(updateUserData);
+      .then((response) => {
+        setCurrentUser(response.data);
         closeAllPopups();
       })
       .catch((error) => {
@@ -202,6 +219,39 @@ function App() {
     setIsEraseCardPopupOpen(true);
   };
 
+  function handleCardLike(card) {
+    if (!card || !card._id) {
+      console.error("Invalid card object");
+      return;
+    }
+    // Verifica una vez más si a esta tarjeta ya le han dado like
+    const isLiked = card.likes.some((i) => i === currentUser._id);
+
+    // Envía una petición a la API y obtén los datos actualizados de la tarjeta
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
+  function handleCardDelete(card) {
+    if (!card || !card._id) {
+      console.error("Invalid card object");
+      return;
+    }
+
+    // Envía una petición a la API y excluye la tarjeta seleccionada
+    api.deleteCard(card._id).then(() => {
+      setCards((state) => state.filter((c) => c._id !== card._id));
+    });
+  }
+
+  const handleLogout = () => {
+    setEmail(null);
+    setIsLoggedIn(false);
+    localStorage.clear();
+    setToken("");
+  };
+
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -211,23 +261,6 @@ function App() {
     setIsInfoTooltipOpen(false);
     setIsInfoTooltipFailOpen(false);
   };
-
-  function handleCardLike(card) {
-    // Verifica una vez más si a esta tarjeta ya le han dado like
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-    // Envía una petición a la API y obtén los datos actualizados de la tarjeta
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
-  }
-
-  function handleCardDelete(card) {
-    // Envía una petición a la API y excluye la tarjeta seleccionada
-    api.deleteCard(card._id).then(() => {
-      setCards((state) => state.filter((c) => c._id !== card._id));
-    });
-  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

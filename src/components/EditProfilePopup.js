@@ -19,8 +19,10 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   // sus datos serán usados en componentes gestionados.
 
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    if (currentUser && currentUser.name && currentUser.about) {
+      setName(currentUser.name);
+      setDescription(currentUser.about);
+    }
   }, [currentUser]);
 
   function handleSubmit(e) {

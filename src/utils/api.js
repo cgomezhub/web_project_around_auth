@@ -120,7 +120,7 @@ class Api {
       });
   }
 
-  //obtener email del user
+  //obtener EL usuario y fijar su email en el header
 
   getUser() {
     return fetch(`${this.address}/users/me`, {
@@ -185,7 +185,7 @@ const api = new Api({
 });
 
 const apiRegister = new Api({
-  address: "https://api.around.myreomtetest.eu", // antiguo "https://register.nomoreparties.co"
+  address: "https://api.around.myremotetest.eu", // antiguo "https://register.nomoreparties.co"
   headers: {
     "Content-Type": "application/json",
   },
@@ -194,8 +194,8 @@ const apiRegister = new Api({
 const apiToken = new Api({
   address: "https://api.around.myremotetest.eu", //antiguo "https://register.nomoreparties.co"
   headers: {
-    "Content-Type": "application/json",
     authorization: `Bearer ${localStorage.getItem("token")}`,
+    "Content-Type": "application/json",
   },
 });
 
