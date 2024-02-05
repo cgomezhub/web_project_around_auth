@@ -38,30 +38,6 @@ function App() {
 
   const [token, setToken] = useState(""); // token del usuario  para la autenticación
 
-  // Esta función se puede llamar para cerrar la sesión del usuario
-  // implicará eliminar el token de autenticación del usuario
-  // y redirigir al usuario a la página de inicio de sesión
-
-  /*
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    api
-      .getCardList()
-      .then((cardsData) => {
-        setCards(cardsData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-*/
   const navigate = useNavigate();
 
   const handleRegisterSubmit = (user) => {
@@ -73,7 +49,7 @@ function App() {
           // para abrir los popups de registro positivo o fallido
           setIsInfoTooltipOpen(true);
           navigate("/signin");
-          console.log(response);
+          // console.log(response);
         } else {
           setIsInfoTooltipFailOpen(true);
         }
@@ -93,11 +69,11 @@ function App() {
           // maneja la respuesta del servidor aquí
           // redirigir al usuario a la pgina principal de la app
           localStorage.clear();
-          console.log(data.token);
+          // console.log(data.token);
           localStorage.setItem("token", data.token);
           setIsLoggedIn(true);
 
-          console.log(localStorage.getItem("token"));
+          // console.log(localStorage.getItem("token"));
           navigate("/");
           //setToken(localStorage.getItem("token"));
           //console.log(token);
@@ -121,7 +97,7 @@ function App() {
         if (response) {
           // maneja la respuesta del servidor aquí
           // agregar el email al encabezado
-          console.log(response);
+          // console.log(response);
           setEmail(response.data.email);
           setCurrentUser(response.data);
         } else {
@@ -148,7 +124,7 @@ function App() {
   useEffect(() => {
     const checkToken = async () => {
       setToken(localStorage.getItem("token"));
-      console.log(token);
+      // console.log(token);
       if (token) {
         handleUser();
         handleCards();
@@ -163,7 +139,7 @@ function App() {
     api
       .addNewCard(cardData)
       .then((newCard) => {
-        console.log(newCard);
+        // console.log(newCard);
         setCards([newCard, ...(Array.isArray(cards) ? cards : [])]);
         closeAllPopups();
       })
@@ -180,7 +156,7 @@ function App() {
     api
       .setUserAvatar(userData)
       .then((updateAvatarData) => {
-        console.log(updateAvatarData);
+        // console.log(updateAvatarData);
         setCurrentUser(updateAvatarData);
         closeAllPopups();
       })
