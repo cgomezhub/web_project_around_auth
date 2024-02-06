@@ -5,7 +5,7 @@
   "main": "index.js",
   "author": "Carlos Gomez",
   "license": "ISC",
-  "homepage": "https://cgomezhub.github.io/web_project_around_auth",
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
