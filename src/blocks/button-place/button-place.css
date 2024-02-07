@@ -5,7 +5,7 @@
   background-size: cover;
   background-position: center;
   background-color: transparent;
-  border:  0px solid white;
+  border: 0px solid white;
   border-right-width: 1px;
   border-left-width: 1px;
   margin: 2% auto auto 55%;
@@ -18,9 +18,9 @@
 
 @media screen and (min-width: 768px) and (max-width: 1280px) {
   .button-place {
-    width: 30%;
-    height: 30%;
-    margin-left: 40%;
+    width: 20%;
+    height: 40%;
+    margin-left: 69%;
     border-top-width: 1px;
     border-bottom-width: 1px;
   }

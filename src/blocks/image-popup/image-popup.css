@@ -1,6 +1,6 @@
 .image-popup {
   width: 75vw;
-  height: 75vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,12 +29,6 @@
   transition: opacity 0.5s ease-in-out;*/
   transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out,
     visibility 0s linear 0.5s 0.5s;
-}
-
-@media screen and (min-width: 768px) and (max-width: 1280px) {
-  .image-popup {
-    height: 50vh;
-  }
 }
 
 @media screen and (max-width: 768px) {
