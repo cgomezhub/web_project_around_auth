@@ -101,6 +101,13 @@ class Api {
       });
   }
 
+  getHeaders() {
+    return {
+      ...this.headers,
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+  }
+
   // Autorizar usuario
 
   authUser(user) {
@@ -120,11 +127,9 @@ class Api {
       });
   }
 
-  //obtener EL usuario y fijar su email en el header
-
   getUser() {
     return fetch(`${this.address}/users/me`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     })
       .then((res) => {
         if (res.ok) {

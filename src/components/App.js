@@ -59,7 +59,7 @@ function App() {
       });
   };
 
-  // manejador del token para obtener el email del usuario
+  // obtencion  del token de usuario
 
   const handleSigninSubmit = (user) => {
     apiRegister
@@ -69,15 +69,16 @@ function App() {
           // maneja la respuesta del servidor aquí
           // redirigir al usuario a la pgina principal de la app
           localStorage.clear();
-          // console.log(data.token);
+          console.log(data.token);
           localStorage.setItem("token", data.token);
-          setIsLoggedIn(true);
+          console.log(localStorage.getItem("token"));
 
-          // console.log(localStorage.getItem("token"));
-          navigate("/");
-          //setToken(localStorage.getItem("token"));
-          //console.log(token);
+          console.log(localStorage);
+          // setToken(localStorage.getItem("token"));
+          // console.log(token);
           handleUser();
+          setIsLoggedIn(true);
+          navigate("/");
         } else {
           // maneja errores de carga de datos
           setIsInfoTooltipFailOpen(true);
@@ -90,14 +91,17 @@ function App() {
     // dirigir a para  configurar el mail a mostar
   };
 
+  // manejador del token para obtener  usuario
+
   const handleUser = () => {
+    console.log(localStorage.getItem("token"));
     apiToken
       .getUser()
       .then((response) => {
         if (response) {
           // maneja la respuesta del servidor aquí
           // agregar el email al encabezado
-          // console.log(response);
+          console.log(response);
           setEmail(response.data.email);
           setCurrentUser(response.data);
         } else {
