@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import { api, apiRegister, apiToken } from "../utils/api";
+import { api, apiRegister } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -24,11 +24,7 @@ function App() {
 
   const [selectedCard, setSeletedCard] = useState(null);
 
-  const [currentUser, setCurrentUser] = useState({
-    name: "",
-    about: "",
-    avatar: "",
-  });
+  const [currentUser, setCurrentUser] = useState({});
 
   const [cards, setCards] = useState([]);
 
@@ -92,7 +88,7 @@ function App() {
 
   const handleUser = () => {
     //console.log(localStorage.getItem("token"));
-    apiToken
+    api
       .getUser()
       .then((response) => {
         if (response) {
@@ -107,7 +103,7 @@ function App() {
         }
       })
       .catch((error) => {
-        console.error("Error during registration:", error);
+        alert("Error during registration:", error);
       });
   };
 
@@ -244,64 +240,62 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div>
-        <Header
-          isLoggedIn={isLoggedIn}
-          onLogout={handleLogout}
-          userEmail={email}
+      <Header
+        isLoggedIn={isLoggedIn}
+        onLogout={handleLogout}
+        userEmail={email}
+      />
+      {!isLoggedIn && (
+        <Auth
+          onRegisterSubmit={handleRegisterSubmit}
+          onSigninSubmit={handleSigninSubmit}
         />
-        {!isLoggedIn && (
-          <Auth
-            onRegisterSubmit={handleRegisterSubmit}
-            onSigninSubmit={handleSigninSubmit}
-          />
-        )}
+      )}
 
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Main
-                  onEditProfileClick={handleEditProfileClick}
-                  onAddPlaceClick={handleAddPlaceClick}
-                  onEditAvatarClick={handleEditAvatarClick}
-                  onEraseCardClick={handleEraseCardClick}
-                  onClose={closeAllPopups}
-                  isEraseCardPopupOpen={isEraseCardPopupOpen}
-                  selectedCard={selectedCard}
-                  onSelectedCard={handleCardClick}
-                  cards={cards}
-                  onCardLike={handleCardLike}
-                  onCardDelete={handleCardDelete}
-                />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} />
-        <InfoTooltipFail
-          isOpen={isInfoTooltipFailOpen}
-          onClose={closeAllPopups}
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Main
+                onEditProfileClick={handleEditProfileClick}
+                onAddPlaceClick={handleAddPlaceClick}
+                onEditAvatarClick={handleEditAvatarClick}
+                onEraseCardClick={handleEraseCardClick}
+                onClose={closeAllPopups}
+                isEraseCardPopupOpen={isEraseCardPopupOpen}
+                selectedCard={selectedCard}
+                onSelectedCard={handleCardClick}
+                cards={cards}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+              />
+            </ProtectedRoute>
+          }
         />
-        <Footer />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-        />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlaceSubmit={handleAddPlaceSubmit}
-        />
-      </div>
+      </Routes>
+      <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} />
+      <InfoTooltipFail
+        isOpen={isInfoTooltipFailOpen}
+        onClose={closeAllPopups}
+      />
+      <Footer />
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+      />
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
+      />
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        onAddPlaceSubmit={handleAddPlaceSubmit}
+      />
     </CurrentUserContext.Provider>
   );
 }
