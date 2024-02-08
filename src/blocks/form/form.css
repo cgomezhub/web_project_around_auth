@@ -6,10 +6,5 @@
   flex-direction: column;
   position: absolute;
   top: 9%;
-  left: 29%;
-}
-@media screen and (max-width: 768px) {
-  .form {
-    left: 20%;
-  }
+  left: 19%;
 }

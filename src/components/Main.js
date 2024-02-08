@@ -1,5 +1,5 @@
 import "../index.css";
-import PopupWithForm from "./PopupWithForm";
+// import PopupWithForm from "./PopupWithForm";
 import pencil from "../images/Vectoredit-pencil2.svg";
 import React, { useContext } from "react";
 import Card from "./Card";
@@ -69,6 +69,8 @@ function Main({
           {selectedCard && (
             <ImagePopup selectedCard={selectedCard} onClose={onClose} />
           )}
+
+          {/*
           <PopupWithForm
             title="¿Estás seguro/a?"
             name="sure-form"
@@ -84,6 +86,8 @@ function Main({
               Sí
             </button>
           </PopupWithForm>
+
+          */}
         </main>
       </div>
     </div>

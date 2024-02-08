@@ -1,18 +1,11 @@
-.image-popup__name{
-    font-family: "Inter",Arial, sans-serif;
-    font-size: 25px;
-    line-height: 121%;
-    color: white;
-    background-color: black;
-    width: 75%;
-    padding-top: 2%;
-    margin: 0;
-    transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
-}
-
-@media screen and (min-width: 320px) and (max-width: 768px){
-    .image-popup__name{
-        font-size: 20px;
-        
-    }
+.image-popup__name {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 25px;
+  line-height: 121%;
+  color: white;
+  background-color: black;
+  width: 80%;
+  padding-top: 2%;
+  margin: 0;
+  transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
 }
