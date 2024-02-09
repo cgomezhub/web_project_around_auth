@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
@@ -12,10 +12,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
   const handleImageChange = (e) => {
     setImage(e.target.value);
   };
-  
+
   function handleSubmit(e) {
     e.preventDefault();
-    
+
     // La URL es válida, enviar los datos al controlador externo
     onAddPlaceSubmit({
       name,

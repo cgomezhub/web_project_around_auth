@@ -7,6 +7,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import EreaseCardPopup from "./EreaseCardPopup";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Auth from "../utils/auth";
 import ProtectedRoute from "./ProtectedRoute";
@@ -23,6 +24,8 @@ function App() {
   const [isInfoTooltipFailOpen, setIsInfoTooltipFailOpen] = useState(false);
 
   const [selectedCard, setSeletedCard] = useState(null);
+
+  const [isCardLinkSelected, setIsCardLinkSelected] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
 
@@ -190,8 +193,12 @@ function App() {
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
   };
-  const handleEraseCardClick = () => {
+  const handleEraseCardClick = (card) => {
     setIsEraseCardPopupOpen(true);
+  };
+
+  const handleCardLinkClick = (card) => {
+    setIsCardLinkSelected(true);
   };
 
   function handleCardLike(card) {
@@ -209,6 +216,7 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    console.log(card);
     if (!card || !card._id) {
       console.error("Invalid card object");
       return;
@@ -218,6 +226,7 @@ function App() {
     api.deleteCard(card._id).then(() => {
       setCards((state) => state.filter((c) => c._id !== card._id));
     });
+    closeAllPopups();
   }
 
   const handleLogout = () => {
@@ -236,6 +245,7 @@ function App() {
     setSeletedCard(null);
     setIsInfoTooltipOpen(false);
     setIsInfoTooltipFailOpen(false);
+    setIsCardLinkSelected(false);
   };
 
   return (
@@ -265,11 +275,13 @@ function App() {
                 onEraseCardClick={handleEraseCardClick}
                 onClose={closeAllPopups}
                 isEraseCardPopupOpen={isEraseCardPopupOpen}
-                selectedCard={selectedCard}
-                onSelectedCard={handleCardClick}
                 cards={cards}
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
+                onSelectedCard={handleCardClick}
+                selectedCard={selectedCard}
+                onCardLinkClick={handleCardLinkClick}
+                isCardLinkClick={isCardLinkSelected}
               />
             </ProtectedRoute>
           }
@@ -295,6 +307,12 @@ function App() {
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlaceSubmit={handleAddPlaceSubmit}
+      />
+      <EreaseCardPopup
+        isOpen={isEraseCardPopupOpen}
+        onClose={closeAllPopups}
+        onCardDelete={handleCardDelete}
+        selectedCard={selectedCard}
       />
     </CurrentUserContext.Provider>
   );

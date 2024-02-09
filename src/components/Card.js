@@ -8,7 +8,10 @@ function Card({
   onSelectedCard,
   onEraseCardClick,
   onCardLike,
+  SelectedCard,
   onCardDelete,
+  onCardLinkClick,
+  isCardLinkCLick,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -38,11 +41,18 @@ function Card({
                 className="card__link"
                 src={card.link}
                 alt={`imagen de ${card.name}`}
-                onClick={() => onSelectedCard(card)}
+                onClick={() => {
+                  onSelectedCard(card);
+                  onCardLinkClick(card);
+                }}
               />
               <button
                 className={cardDeleteButtonClassName}
-                onClick={() => onCardDelete(card)}
+                onClick={() => {
+                  onSelectedCard(card);
+                  onEraseCardClick();
+                }}
+                // onClick={() => onCardDelete(card)}
               ></button>
               <p className="card__name">{card.name}</p>
               <button

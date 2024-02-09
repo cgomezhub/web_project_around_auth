@@ -13,12 +13,13 @@ function Main({
   onAddPlaceClick,
   onEraseCardClick,
   onClose,
-  isEraseCardPopupOpen,
   selectedCard,
   onSelectedCard,
   cards,
   onCardLike,
   onCardDelete,
+  isCardLinkClick,
+  onCardLinkClick,
 }) {
   const currentUser = useContext(CurrentUserContext);
   if (!currentUser) {
@@ -65,29 +66,16 @@ function Main({
             onEraseCardClick={onEraseCardClick}
             onCardLike={onCardLike}
             onCardDelete={onCardDelete}
+            onCardLinkClick={onCardLinkClick}
+            isCardLinkClick={isCardLinkClick}
           />
           {selectedCard && (
-            <ImagePopup selectedCard={selectedCard} onClose={onClose} />
+            <ImagePopup
+              selectedCard={selectedCard}
+              onClose={onClose}
+              isCardLinkClick={isCardLinkClick}
+            />
           )}
-
-          {/*
-          <PopupWithForm
-            title="¿Estás seguro/a?"
-            name="sure-form"
-            isOpen={isEraseCardPopupOpen}
-            onClose={onClose}
-            className={isEraseCardPopupOpen ? "active" : "popup_is-opened"}
-          >
-            <button
-              type="button"
-              className="form__button"
-              onClick={onCardDelete}
-            >
-              Sí
-            </button>
-          </PopupWithForm>
-
-          */}
         </main>
       </div>
     </div>

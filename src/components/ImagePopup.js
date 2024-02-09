@@ -1,7 +1,7 @@
 import "../index.css";
 import React, { useEffect } from "react";
 
-function ImagePopup({ selectedCard, onClose }) {
+function ImagePopup({ selectedCard, onClose, isCardLinkClick }) {
   useEffect(() => {
     const handleEscClose = (event) => {
       if (event.key === "Escape" && selectedCard) {
@@ -19,7 +19,9 @@ function ImagePopup({ selectedCard, onClose }) {
 
   return (
     <section
-      className={`image-popup ${selectedCard ? "image-popup_visible" : ""}`}
+      className={`image-popup ${
+        selectedCard && isCardLinkClick ? "image-popup_visible" : ""
+      }`}
     >
       <button
         type="button"
