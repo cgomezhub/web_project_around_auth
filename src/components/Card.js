@@ -52,7 +52,6 @@ function Card({
                   onSelectedCard(card);
                   onEraseCardClick();
                 }}
-                // onClick={() => onCardDelete(card)}
               ></button>
               <p className="card__name">{card.name}</p>
               <button

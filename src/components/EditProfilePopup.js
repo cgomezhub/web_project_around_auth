@@ -1,22 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-  function handleDesriptionChange(e) {
-    setDescription(e.target.value);
-  }
-
   // suscribir el contexto
   const currentUser = useContext(CurrentUserContext);
   // Después de cargar el usuario actual desde la API
   // sus datos serán usados en componentes gestionados.
+  console.log(currentUser);
 
   React.useEffect(() => {
     if (currentUser && currentUser.name && currentUser.about) {
@@ -24,6 +15,21 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       setDescription(currentUser.about);
     }
   }, [currentUser]);
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  /*
+  const inputRefName = useRef();
+  const inputRefAbout = useRef();
+  console.log(inputRefName);
+  */
+
+  function handleNameChange(e) {
+    setName(e.target.value);
+  }
+  function handleDesriptionChange(e) {
+    setDescription(e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();

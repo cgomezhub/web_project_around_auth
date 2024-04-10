@@ -10,21 +10,18 @@
   opacity: 1;
 }
 
-.profile__avatar-edit:hover + .profile__avatar{
-    opacity: 0.5;
+.profile__avatar-edit:hover + .profile__avatar {
+  opacity: 0.5;
 }
 
-
-
-@media screen and (min-width: 768px) and (max-width: 1280px){
+@media screen and (min-width: 768px) and (max-width: 1280px) {
   .profile__avartar-edit {
     top: 40%;
     right: 45%;
   }
 }
 
-
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .profile__avartar-edit {
     top: 50%;
     right: 0%;
