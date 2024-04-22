@@ -174,7 +174,7 @@ class Api {
 }
 
 const api = new Api({
-  address: "http://35.192.48.191:3000",
+  address: "https://34.173.92.121:300",
   headers: {
     authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
@@ -182,7 +182,7 @@ const api = new Api({
 });
 
 const apiRegister = new Api({
-  address: "http://35.192.48.191:3000",
+  address: "https://34.173.92.121:3000",
   headers: {
     "Content-Type": "application/json",
   },
