@@ -174,7 +174,7 @@ class Api {
 }
 
 const api = new Api({
-  address: "https://api.around.myremotetest.eu",
+  address: "http://localhost:3001",
   headers: {
     authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
@@ -182,7 +182,7 @@ const api = new Api({
 });
 
 const apiRegister = new Api({
-  address: "https://api.around.myremotetest.eu",
+  address: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
   },

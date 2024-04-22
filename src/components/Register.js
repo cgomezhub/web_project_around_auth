@@ -37,9 +37,11 @@ function Register({ onRegisterSubmit }) {
           className="auth-form__input"
           type="password"
           value={password}
+          git
+          status
           onChange={handlePasswordChange}
           placeholder="Contraseña"
-          minLength="4"
+          minLength="8"
           maxLength="20"
           required
         />
