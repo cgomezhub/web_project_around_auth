@@ -32,7 +32,7 @@ class Api {
     const method = like ? "PUT" : "DELETE";
     return fetch(`${this.address}/cards/likes/${cardId}`, {
       method: method,
-      headers: this.headers,
+      headers: this.getHeaders(),
     })
       .then((res) => {
         if (res.ok) {
@@ -174,7 +174,8 @@ class Api {
 }
 
 const api = new Api({
-  address: "https://api.around.socialnomad.com",
+  // address: "https://api.around.socialnomad.com",
+  address: "http://localhost:3001",
   headers: {
     authorization: `Bearer ${localStorage.getItem("token")}`,
     "Content-Type": "application/json",
@@ -182,7 +183,8 @@ const api = new Api({
 });
 
 const apiRegister = new Api({
-  address: "https://api.around.socialnomad.com",
+  // address: "https://api.around.socialnomad.com",
+  address: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
   },

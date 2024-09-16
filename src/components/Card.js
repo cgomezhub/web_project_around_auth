@@ -8,10 +8,7 @@ function Card({
   onSelectedCard,
   onEraseCardClick,
   onCardLike,
-  SelectedCard,
-  onCardDelete,
-  onCardLinkClick,
-  isCardLinkCLick,
+  onCardLinkClick
 }) {
   const currentUser = useContext(CurrentUserContext);
 
@@ -19,16 +16,16 @@ function Card({
     <section className="cards">
       {Array.isArray(cards) &&
         cards.map((card, index) => {
+          if (!card) return null; //
           const key = card._id || index; // Si la tarjeta no tiene _id, usa el índice del array
           // Verificando si el usuario actual es el propietario de la tarjeta actual
-          const isOwn = card.owner === currentUser._id;
-          // Creando una variable que después establecerás en `className` para el botón eliminar
+          const isOwn = currentUser && card.owner === currentUser._id;          // Creando una variable que después establecerás en `className` para el botón eliminar
           const cardDeleteButtonClassName = `card__trash ${
             isOwn ? "card__trash_active" : "card__trash"
           }`;
 
           // Verifica si el usuario actual le dio "like" a la tarjeta
-          const isLiked = card.likes.some((i) => i === currentUser._id);
+          const isLiked = currentUser && card.likes.some((i) => i === currentUser._id);
 
           // Crea una variable que después establecerás en `className` para el botón like
           const cardLikeButtonClassName = `card__heart ${
@@ -52,12 +49,12 @@ function Card({
                   onSelectedCard(card);
                   onEraseCardClick();
                 }}
-              ></button>
+              />
               <p className="card__name">{card.name}</p>
               <button
                 className={cardLikeButtonClassName}
                 onClick={() => onCardLike(card)}
-              ></button>
+              />
               <p className="card__like-count">
                 {card.likes && card.likes.length}
               </p>
